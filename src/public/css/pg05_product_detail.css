@@ -1,0 +1,158 @@
+body {
+    font-family: 'Arial, sans-serif';
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search-bar input {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    width: 300px;
+}
+
+.nav-links a {
+    color: #fff;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+.sell-btn {
+    background-color: #fff;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.product-detail {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    background-color: #ddd;
+}
+
+.product-info {
+    margin-left: 40px;
+    max-width: 600px;
+}
+
+.product-info h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.product-info .brand {
+    font-size: 18px;
+    color: #666;
+}
+
+.price {
+    font-size: 24px;
+    color: #e60023;
+    margin: 15px 0;
+}
+
+.price span {
+    font-size: 16px;
+    color: #666;
+}
+
+.product-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.buy-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.product-description,
+.product-details {
+    margin-top: 20px;
+}
+
+.product-description h2,
+.product-details h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.comments {
+    margin-top: 30px;
+}
+
+.comments h2 {
+    font-size: 20px;
+}
+
+.comment {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ccc;
+}
+
+.comments form {
+    margin-top: 20px;
+}
+
+.comments textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.comments button {
+    display: block;
+    background-color: #ff4d4d;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
