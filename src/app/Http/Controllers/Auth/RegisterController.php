@@ -12,7 +12,7 @@ class RegisterController extends Controller
 {
     public function showRegistrationForm()
     {
-        return view('auth.pg03_member_register');
+        return view('auth.pg04_login');
     }
 
     public function register(Request $request)
@@ -22,7 +22,6 @@ class RegisterController extends Controller
         $user = $this->create($request->all());
 
         // ログイン処理など必要な処理を追加
-
         return redirect()->route('login')->with('success', '登録が完了しました');
     }
 

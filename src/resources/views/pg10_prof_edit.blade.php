@@ -10,13 +10,17 @@
 <body>
     <header class="header">
         <div class="logo-container">
-            <img src="logo.png" alt="COACHTECHロゴ" class="logo">
+            <img src="{{ asset('storage/img/logo.png') }}" alt="COACHTECHロゴ" class="logo">
         </div>
         <nav class="nav-bar">
             <input type="text" placeholder="なにをお探しですか？" class="search-box">
             <div class="nav-links">
-                <a href="#">ログアウト</a>
-                <a href="#">マイページ</a>
+                <!-- ログアウトボタンをフォーム化 -->
+                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="logout-button">ログアウト</button>
+                </form>
+                <a href="/mypage">マイページ</a>
                 <a href="#" class="sell-button">出品</a>
             </div>
         </nav>
@@ -31,6 +35,7 @@
         </div>
 
         <form action="#" method="post" class="settings-form">
+            @csrf
             <div class="form-group">
                 <label for="username">ユーザー名</label>
                 <input type="text" id="username" name="username" value="既存の値が入力されている">

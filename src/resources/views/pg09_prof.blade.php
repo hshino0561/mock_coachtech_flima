@@ -1,32 +1,17 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プロフィールページ</title>
-    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/pg09_prof.css') }}" />
-</head>
-<body>
-    <header class="header">
-        <div class="logo-container">
-            <img src="logo.png" alt="COACHTECHロゴ" class="logo">
-        </div>
-        <nav class="nav-bar">
-            <input type="text" placeholder="なにをお探しですか？" class="search-box">
-            <div class="nav-links">
-                <a href="#">ログアウト</a>
-                <a href="#">マイページ</a>
-                <a href="#" class="sell-button">出品</a>
-            </div>
-        </nav>
-    </header>
+@extends('layouts.app2')
 
+@section('title', 'プロフィールページ') {{-- タイトルは専用セクションに分離 --}}
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/pg09_prof.css') }}">
+@endsection
+
+@section('content')
     <main class="profile-container">
         <section class="user-info">
             <div class="avatar"></div>
             <h2 class="username">ユーザー名</h2>
-            <button class="edit-profile-button">プロフィールを編集</button>
+            <a href="/mypage/profile" class="edit-profile-button">プロフィールを編集</a>
         </section>
 
         <div class="tab-menu">
@@ -53,5 +38,4 @@
             </div>
         </section>
     </main>
-</body>
-</html>
+@endsection

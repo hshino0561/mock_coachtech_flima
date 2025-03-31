@@ -32,13 +32,13 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.pg03_member_register');
         });
 
+        // Fortify::registerResponse(function ($request) {
+        //     return redirect('auth.pg04_login');
+        // });
+
         Fortify::loginView(function () {
             return view('auth.pg04_login');
         });
-
-        // Fortify::registerResponse(function ($request) {
-        //     return redirect('auth.pg04_login');
-        // });        
 
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);

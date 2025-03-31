@@ -1,10 +1,16 @@
-@extends('layouts.app1')
-
-@section('title', 'ログイン画面') {{-- タイトルは専用セクションに分離 --}}
-
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/pg04_login.css') }}">
-@endsection
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン画面</title>
+    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pg04_login.css') }}">
+</head>
+<body>
+    <header class="header">
+        <img src="{{ asset('storage/img/logo.png') }}" alt="COACHTECHロゴ" class="logo">
+    </header>
 
     <!-- エラーメッセージの表示 -->
     @if ($errors->any())
@@ -17,7 +23,6 @@
     </div>
     @endif
 
-@section('content')
     <main class="login-container">
         <h1>ログイン</h1>
         <form action="{{ route('login') }}" method="post" class="login-form">
@@ -40,4 +45,5 @@
             <a href="/register">会員登録はこちら</a>
         </p>
     </main>
-@endsection
+</body>
+</html>

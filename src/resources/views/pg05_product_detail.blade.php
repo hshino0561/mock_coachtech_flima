@@ -15,7 +15,7 @@
             <input type="text" placeholder="なにをお探しですか？">
         </div>
         <nav class="nav-links">
-            <a href="#">ログイン</a>
+            <a href="/login">ログイン</a>
             <a href="#">マイページ</a>
             <a href="#" class="sell-btn">出品</a>
         </nav>
