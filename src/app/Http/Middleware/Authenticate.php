@@ -18,4 +18,13 @@ class Authenticate extends Middleware
             return route('login');
         }
     }
+
+    // public function handle($request, Closure $next, ...$guards)
+    // {
+    //     if (Auth::check() && Auth::user()->is_first_login) {
+    //         return redirect('/first-login');
+    //     }
+
+    //     return $next($request);
+    // }
 }

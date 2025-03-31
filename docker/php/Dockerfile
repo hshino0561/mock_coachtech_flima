@@ -1,4 +1,7 @@
-FROM php:7.4.9-fpm
+FROM php:8.1.1-fpm
+
+# 一般ユーザの作成
+RUN useradd -m -u 1000 -s /bin/bash shino
 
 COPY php.ini /usr/local/etc/php/
 
@@ -11,3 +14,9 @@ RUN curl -sS https://getcomposer.org/installer | php \
   && composer self-update
 
 WORKDIR /var/www
+
+# 権限の設定
+RUN chown -R shino:shino /var/www
+
+# ユーザを切り替える
+USER shino
