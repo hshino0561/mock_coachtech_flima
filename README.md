@@ -5,10 +5,6 @@
 　　1. git clone git@github.com:hshino0561/mock_coachtech_flima.git
 　　※クローン先ディレクトリは適宜用意お願いします。
 　　2. docker-compose up -d --build
-　　※各種コンテナが起動しない場合は、利用環境に合わせてdocker-compose.ymlファイルを編集してください。
-　　※mailhogコンテナについては、コメントアウトしているので、docker start mailhogなどで別途起動してください。
-　　※またはmailhogコンテナの定義を利用する場合は、コメントアウトを解除して再度ビルドしてください。(設定の競合時は適宜変更のうえ、再度ビルドしてください。)
-　　※mailhogコンテナがない場合は、コメントアウトを解除して再度ビルドしてください。
 
 　Laravel環境構築
 　　1. docker-compose exec php bash
