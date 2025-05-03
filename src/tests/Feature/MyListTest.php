@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Like;
+use App\Models\Order;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -65,6 +67,20 @@ class MyListTest extends TestCase
     public function test_2_購入済み商品にはSoldと表示される()
     {
         $this->actingAs($this->user);
+
+        // 購入データを事前に登録
+        Order::create([
+            'buyer_id' => '3',
+            'item_id' => '9',
+            'price' => '4000',
+            'delivery_postal_code' => '222-2222',
+            'delivery_address' => '埼玉県',
+            'delivery_building' => 'プラザ3',
+            'payment_method' => 'カード支払い',
+        ]);
+
+        // 商品に購入フラグを立てる
+        Product::find(9)?->update(['is_sold' => true]);
 
         // 「自分がいいね」かつ「購入済み」かつ「他人の商品」
         $soldProduct = \App\Models\Product::where('is_sold', true)
