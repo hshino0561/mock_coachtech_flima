@@ -6,20 +6,10 @@ body {
     background-color: #ffffff;
 }
 
-.header {
-    background-color: #000;
-    padding: 10px;
-    text-align: left;
-}
-
-.logo {
-    height: 40px;
-}
-
 .form-container {
-    max-width: 400px;
+    max-width: 450px;
     margin: 50px auto;
-    padding: 20px;
+    /* padding: 20px; */
     text-align: center;
 }
 
@@ -32,12 +22,14 @@ h1 {
 .registration-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    /* gap: 15px; */
+    margin-top: 8%;
 }
 
 label {
     font-size: 14px;
     text-align: left;
+    font-weight: bold;
 }
 
 input {
@@ -46,24 +38,28 @@ input {
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    margin-bottom: 20px;
 }
 
 .submit-btn {
     padding: 10px;
-    background-color: #ff6b6b;
+    background-color: #ff4c4c;
     color: white;
     border: none;
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 10%;
+    margin-bottom: 2%;
 }
 
-.submit-btn:hover {
-    background-color: #ff4c4c;
-}
+/* .submit-btn:hover { */
+/* background-color: #ff4c4c; */
+/* } */
 
 .login-link {
     margin-top: 10px;
+    font-size: 14px;
 }
 
 .login-link a {
@@ -71,6 +67,6 @@ input {
     text-decoration: none;
 }
 
-.login-link a:hover {
-    text-decoration: underline;
-}
+/* .login-link a:hover { */
+/* text-decoration: underline; */
+/* } */

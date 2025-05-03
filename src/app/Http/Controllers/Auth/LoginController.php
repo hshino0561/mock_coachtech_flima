@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User; // ← 必ず追加
-
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 
 class LoginController extends Controller
 {
@@ -21,38 +21,22 @@ class LoginController extends Controller
         return view('auth.pg04_login');
     }
 
-    // ログイン処理
-    public function login(Request $request)
+    // ログイン処理（LoginRequest に変更）
+    public function login(LoginRequest $request)
     {
-        // バリデーション
-        $credentials = $request->validate([
-            'login' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        $request->session()->regenerate();
 
-        // ユーザー名かメールアドレスで認証
-        $field = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+        /** @var User $user */
+        $user = Auth::user();
 
-        if (Auth::attempt([$field => $request->login, 'password' => $request->password])) {
-            $request->session()->regenerate();
+        if (!$user->is_first_login) {
+            $user->is_first_login = true;
+            $user->save();
 
-            /** @var User $user */
-            $user = Auth::user(); // ログイン中のユーザー情報を取得:明示的にUserモデルとして扱う
-
-            // ✅ 初回ログインチェック
-            if ($user->is_first_login) {
-                $user->is_first_login = false; // フラグを false に更新
-                $user->save();
-
-                return redirect('/mypage/profile'); // 初回ログイン先
-            }
-
-            return redirect()->intended('/mypage'); // 通常のログイン遷移先
+            return redirect('/mypage/profile');
         }
 
-        return back()->withErrors([
-            'login' => 'ユーザー名またはメールアドレス、またはパスワードが正しくありません。',
-        ]);
+        return redirect()->intended('/');
     }
 
     // ログアウト処理

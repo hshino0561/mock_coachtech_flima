@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Prof;
+use App\Models\Product;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -21,7 +23,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_first_login',
     ];
 
     /**
@@ -31,7 +32,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        // 'remember_token',
     ];
 
     /**
@@ -43,4 +44,34 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'is_first_login' => 'boolean',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'user_id');
+    }
+
+    public function prof()
+    {
+        return $this->hasOne(Prof::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    /**
+     * ユーザーがいいねした商品一覧
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function likedProducts()
+    {
+        return $this->belongsToMany(Product::class, 'likes')->withTimestamps();
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'buyer_id');
+    }
 }

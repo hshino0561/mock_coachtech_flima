@@ -1,0 +1,113 @@
+body {
+    font-family: 'Arial, sans-serif';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+/* 中央揃えと可変対応 */
+.form-container {
+    width: 100%;
+    max-width: 680px;
+    padding: 0 20px;
+    margin: 50px auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 75px;
+    color: #000;
+}
+
+.address-form {
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+}
+
+/* ラベルとエラーを横並びに */
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label-with-error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ? 項目名の見た目を明示的に固定 */
+.label-with-error label {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+input[type="text"] {
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+}
+
+/* エラー（ラベル右用） */
+.field-error-inline {
+    color: red;
+    font-size: 14px;
+}
+
+/* 送信ボタン */
+.submit-btn {
+    margin-top: 60px;
+    width: 100%;
+    height: 60px;
+    background-color: #FF5555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 850px) {
+    h1 {
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+
+    label {
+        font-size: 18px;
+    }
+
+    .submit-btn {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .form-container {
+        margin: 60px auto;
+        padding: 0 16px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    input[type="text"] {
+        font-size: 15px;
+    }
+}

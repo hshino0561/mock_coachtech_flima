@@ -1,2 +1,5 @@
 *
 !.gitignore
+!avatars/**
+!img/**
+!product_img/**

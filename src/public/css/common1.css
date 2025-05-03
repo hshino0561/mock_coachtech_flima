@@ -1,11 +1,120 @@
-/* ヘッダー部分（ロゴ） */
+/* ===== ヘッダー全体：横並びかつ中央揃え ===== */
 .header {
     background-color: #000;
-    padding: 10px 0;
-    text-align: left;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    /* 垂直中央揃え */
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    /* ▼ 最小高さを設定して、ナビがなくても潰れないようにする */
+    min-height: 62px;
+}
+
+/* ロゴ部分 */
+.logo-container {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    height: 100%;
 }
 
 .logo {
-    height: 25px;
-    margin-left: 20px;
+    height: 28px;
+    /* 少し大きくしてボタンと高さ揃えやすく */
+    width: auto;
+    object-fit: contain;
+    display: block;
+    /* vertical-align: middle; */
+    object-fit: contain;
+}
+
+/* 検索バー・ナビを内包するフレックス */
+.nav-bar {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10%;
+    min-width: 0;
+}
+
+/* 検索ボックスフォームを左寄せ */
+.nav-center {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+    margin: 0;
+    /* ← これで明示リセット */
+}
+
+.search-box {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 500px;
+    color: #000;
+    box-sizing: border-box;
+}
+
+.search-box::placeholder {
+    padding-left: 5%;
+    /* ⚠ paddingは効かないブラウザもある */
+    color: #000;
+    opacity: 1;
+    /* ← 薄くなりすぎるのを防止 */
+}
+
+/* ナビリンク（右寄せ） */
+.nav-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.logout-button,
+.nav-links a {
+    color: white;
+    font-size: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+}
+
+.nav-links form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a.sell-button {
+    background-color: #fff;
+    color: #000;
+    padding: 6px 18px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* エラーメッセージ（右側表示） */
+.field-error {
+    color: #d9534f;
+    font-size: 13px;
+    white-space: nowrap;
 }

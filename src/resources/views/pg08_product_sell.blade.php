@@ -1,38 +1,37 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品出品</title>
-    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/pg08_product_sell.css') }}" />
-</head>
-<body>
+@extends('layouts.common_app1')
 
-    <!-- ヘッダー -->
-    <header class="header">
-        <div class="header-content">
-            <img src="logo.png" alt="COACHTECHロゴ" class="logo">
-            <input type="text" placeholder="なにをお探しですか？" class="search-bar">
-            <nav class="nav-links">
-                <a href="#">ログアウト</a>
-                <a href="#">マイページ</a>
-                <a href="#" class="cta-button">出品</a>
-            </nav>
-        </div>
-    </header>
+@section('title', '商品出品')
 
-    <!-- メインコンテンツ -->
-    <main class="form-container">
-        <h1>商品の出品</h1>
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/pg08_product_sell.css') }}">
+@endsection
 
+@section('content')
+<!-- メインコンテンツ -->
+<main class="form-container">
+    <h1>商品の出品</h1>
+    <!-- @if ($errors->any())
+    <ul class="field-error">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+    @endif -->
+    <form action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <!-- 商品画像 -->
         <section class="product-image-section">
-            <label for="product-image">商品画像</label>
-            <div class="image-upload">
-                <p>画像を選択する</p>
+            <label for="product-image">商品画像　
+                @if ($errors->has('product-image'))
+                <span class="field-error">{{ $errors->first('product-image') }}</span>
+                @endif
+            </label>
+
+            <div class="image-upload" id="imageUploadArea">
+                <p id="uploadText">画像を選択する</p>
+                <img id="imagePreview" src="" alt="プレビュー" style="display: none;" />
             </div>
-            <input type="file" id="product-image" class="hidden-input">
+            <input type="file" name="product-image" id="product-image" class="hidden-input" accept="image/*">
         </section>
 
         <!-- 商品の詳細 -->
@@ -40,57 +39,89 @@
             <h2>商品の詳細</h2>
 
             <!-- カテゴリ -->
-            <label>カテゴリ</label>
+            <label>カテゴリー　
+                @if ($errors->has('category_ids'))
+                <span class="field-error">{{ $errors->first('category_ids') }}</span>
+                @endif
+            </label>
             <div class="categories">
-                <span>ファッション</span>
-                <span>家電</span>
-                <span>インテリア</span>
-                <span>レディース</span>
-                <span>メンズ</span>
-                <span>コスメ</span>
-                <span>本</span>
-                <span>ゲーム</span>
-                <span>スポーツ</span>
-                <span>キッチン</span>
-                <span>ハンドメイド</span>
-                <span>アクセサリー</span>
-                <span>おもちゃ</span>
-                <span>ベビー・キッズ</span>
+                @foreach($categories as $category)
+                <span class="category-tag" data-id="{{ $category->id }}">{{ $category->name }}</span>
+                @endforeach
             </div>
 
+            <!-- 選択されたカテゴリをフォーム送信用（複数可） -->
+            <input type="hidden" name="category_ids" id="selectedCategories" value="{{ old('category_ids') }}">
+
             <!-- 商品の状態 -->
-            <label for="condition">商品の状態</label>
-            <select id="condition">
-                <option value="">選択してください</option>
-                <option value="new">新品</option>
-                <option value="no-scratches">目立った傷や汚れなし</option>
-                <option value="slight-scratches">やや傷や汚れあり</option>
-                <option value="damaged">傷や汚れが目立つ</option>
-            </select>
+            <div class="label-with-error">
+                <label for="condition">商品の状態</label>
+                @if ($errors->has('condition_id'))
+                <span class="field-error">{{ $errors->first('condition_id') }}</span>
+                @endif
+            </div>
+            <!-- 商品状態 カスタムセレクト -->
+            <div class="custom-select-wrapper">
+                <div class="custom-select" id="customSelect">
+                    <span class="selected">選択してください</span>
+                    <ul class="options">
+                        @foreach ($conditions as $condition)
+                        <li data-id="{{ $condition->id }}" data-value="{{ $condition->label }}">{{ $condition->label }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <!-- フォーム送信用 -->
+                <input type="hidden" name="condition_id" id="conditionInput" value="{{ old('condition_id') }}">
+                <!-- <p style="color: #999;">[DEBUG] condition_id: {{ old('condition_id') }}</p> -->
+                <!-- <input type="hidden" name="condition_id" id="conditionInput" value="{{ old('condition_id') }}">
+                <p>[DEBUG hidden] <code>conditionInput.value = "{{ old('condition_id') }}"</code></p> -->
+            </div>
         </section>
 
         <!-- 商品名と説明 -->
         <section class="product-description-section">
-            <h2>商品名と説明</h2>
+            <h2 class="sub-label">商品名と説明</h2>
 
-            <label for="product-name">商品名</label>
-            <input type="text" id="product-name" placeholder="商品名を入力してください">
+            <label for="product-name">商品名　
+                @if ($errors->has('product_name'))
+                <span class="field-error">{{ $errors->first('product_name') }}</span>
+                @endif
+            </label>
+            <input type="text" id="product-name" name="product_name" value="{{ old('product_name') }}">
 
-            <label for="product-description">商品の説明</label>
-            <textarea id="product-description" placeholder="商品の説明を入力してください"></textarea>
+            <label for="brand">ブランド名　
+                @if ($errors->has('brand'))
+                <span class="field-error">{{ $errors->first('brand') }}</span>
+                @endif
+            </label>
+            <input type="text" id="brand" name="brand" value="{{ old('brand') }}">
+
+            <label for="product-description">商品の説明　
+                @if ($errors->has('product_description'))
+                <span class="field-error">{{ $errors->first('product_description') }}</span>
+                @endif
+            </label>
+            <textarea id="product-description" name="product_description">{{ old('product_description') }}</textarea>
         </section>
 
         <!-- 販売価格 -->
         <section class="product-price-section">
-            <label for="price">販売価格</label>
+            <label for="price">販売価格　
+                @if ($errors->has('price'))
+                <span class="field-error">{{ $errors->first('price') }}</span>
+                @endif
+            </label>
+            <!-- 修正後（\ はCSSで表示） -->
             <div class="price-input">
-                <span>\</span>
-                <input type="number" id="price" placeholder="価格を入力してください">
+                <input type="number" id="price" name="price" value="{{ old('price') }}" placeholder="&yen;">
             </div>
         </section>
 
-        <button class="submit-btn">出品する</button>
-    </main>
+        <button class="submit-btn" type="submit">出品する</button>
+    </form>
+</main>
+@endsection
 
-</body>
-</html>
+@section('js')
+<script src="{{ asset('js/pg08_product_sell.js') }}"></script>
+@endsection
