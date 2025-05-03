@@ -14,36 +14,41 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        // ログイン済みかつ page パラメータなし → mylist にリダイレクト
-        if (Auth::check() && !$request->has('page')) {
-            return redirect()->route('top', ['page' => 'mylist']);
+        // pageパラメータがなければ「recommend」にリダイレクト（キーワードは維持）
+        if (!$request->has('page')) {
+            return redirect()->route('top', [
+                'page' => 'recommend',
+                'keyword' => $request->input('keyword'),
+            ]);
         }
 
         $keyword = $request->input('keyword');
         $products = collect();
         $mylist = collect();
 
+        // おすすめタブ：他人の商品 + 検索キーワード
+        if ($request->page === 'recommend') {
+            $query = Product::query()
+                ->where('user_id', '!=', Auth::id());
+
+            $products = $query
+                ->when($keyword, function ($query, $keyword) {
+                    return $query->where('name', 'like', '%' . $keyword . '%');
+                })
+                ->latest()
+                ->get();
+        }
+
+        // マイリストタブ：いいねした商品
         if ($request->page === 'mylist' && Auth::check()) {
             /** @var \App\Models\User $user */
             $user = Auth::user();
+
             $mylist = $user->likedProducts()
                 ->when($keyword, function ($query, $keyword) {
                     $query->where('name', 'like', '%' . $keyword . '%');
                 })
-                ->latest()
-                ->get();
-        } else {
-            $query = Product::query();
-
-            if (Auth::check()) {
-                $query->where('user_id', '!=', Auth::id());
-            }
-
-            $products = $query
-                ->when($keyword, function ($query, $keyword) {
-                    $query->where('name', 'like', '%' . $keyword . '%');
-                })
-                ->latest()
+                ->orderBy('products.created_at', 'desc') // 明示的にテーブル指定
                 ->get();
         }
 

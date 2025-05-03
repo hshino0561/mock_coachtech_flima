@@ -32,7 +32,7 @@ class ItemListTest extends TestCase
     {
         // Product::factory()->count(3)->create();
 
-        $response = $this->get('/');
+        $response = $this->followingRedirects()->get('/');
 
         $response->assertStatus(200);
         $products = Product::all();
@@ -48,7 +48,7 @@ class ItemListTest extends TestCase
         // 既に is_sold = true の商品を1件取得（該当商品が存在することが前提）
         $soldProduct = \App\Models\Product::where('is_sold', true)->firstOrFail();
 
-        $response = $this->get('/');
+        $response = $this->followingRedirects()->get('/');
 
         $response->assertStatus(200);
         $response->assertSee('Sold');

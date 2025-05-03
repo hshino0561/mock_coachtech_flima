@@ -24,13 +24,9 @@
     <nav class="nav-bar">
       <div class="nav-left"></div>
 
-      <form action="{{ route('items.search') }}" method="GET" class="nav-center">
-        <input
-          type="text"
-          name="keyword"
-          value="{{ request('keyword') }}"
-          class="search-box"
-          placeholder="なにをお探しですか？">
+      <!-- 共通テンプレート内の検索窓 -->
+      <form action="{{ route('top') }}" method="GET" class="nav-center">
+        <input type="text" name="keyword" value="{{ request('keyword') }}" class="search-box" placeholder="なにをお探しですか？">
       </form>
 
       <div class="nav-right nav-links">
