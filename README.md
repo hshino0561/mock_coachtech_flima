@@ -27,9 +27,13 @@
 　　    MAIL_FROM_ADDRESS=no-reply@example.com
 　　    MAIL_FROM_NAME="COACHTECH"
 　　4. php artisan key:generate
-　　5. php artisan migrate
-　　6. php artisan db:seed
-　　7. php artisan storage:link
+　　5. docker-compose up -d --build
+　　　※または下記を実行してください。
+　　　　docker-compose down
+　　　　docker-compose up -d
+　　6. php artisan migrate
+　　7. php artisan db:seed
+　　8. php artisan storage:link
 
 ## テスト：Feature　※誤解があり、単体ではなく機能テストで確認しました。
 　　0. 一括実行(シェル)　※コンテナ内で実行
