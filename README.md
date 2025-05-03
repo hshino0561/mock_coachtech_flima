@@ -6,6 +6,9 @@
 　　※クローン先ディレクトリは適宜用意お願いします。
 　　2. docker-compose up -d --build
 　　※各種コンテナが起動しない場合は、利用環境に合わせてdocker-compose.ymlファイルを編集してください。
+　　※mailhogコンテナについては、コメントアウトしているので、docker start mailhogなどで別途起動してください。
+　　※またはmailhogコンテナの定義を利用する場合は、コメントアウトを解除して再度ビルドしてください。(設定の競合時は適宜変更のうえ、再度ビルドしてください。)
+　　※mailhogコンテナがない場合は、コメントアウトを解除して再度ビルドしてください。
 
 　Laravel環境構築
 　　1. docker-compose exec php bash
@@ -13,14 +16,25 @@
 　　3. .env.exampleファイルから.envを作成し、環境変数を変更
 　　    cp src/.env.example src/.env
 　　    ※環境により適宜変更してください。
+　　    ※参考変更例
+　　    DB_CONNECTION=mysql
+　　    DB_HOST=mysql
+　　    DB_PORT=3306
+　　    DB_DATABASE=laravel_db
+　　    DB_USERNAME=laravel_user
+　　    DB_PASSWORD=laravel_pass
+　　    
+　　    MAIL_FROM_ADDRESS=no-reply@example.com
+　　    MAIL_FROM_NAME="COACHTECH"
 　　4. php artisan key:generate
-　　5. docker-compose up -d --build
-　　6. php artisan migrate
-　　7. php artisan db:seed
-　　8. php artisan storage:link
+　　5. php artisan migrate
+　　6. php artisan db:seed
+　　7. php artisan storage:link
 
 ## テスト：Feature　※誤解があり、単体ではなく機能テストで確認しました。
-　※今回は下記分割して実行したため、一括実行でうまくいかない場合は、下記単体で実行してください。
+　　0. 一括実行(シェル)　※コンテナ内で実行
+　　　 sh tests/Feature/FeatureTest.sh
+　※一括実行でうまくいかない場合は、下記単体版を実行してください。
 　　　また、エラー時は、必要により適宜データのリセット後に再実行をお願いします。
 　　1. 会員登録機能
 　　　 php artisan test --filter=RegisterTest
@@ -60,7 +74,7 @@
 　　・MySQL 8.0.26
 　　・Nginx 1.21.1
 　　・Bootstrap
-　　・PHPunit
+　　・PHPFeature
 
 ## ER図
 　　・ER.drawio.svg
@@ -84,6 +98,8 @@
 　　　3. 「コンビニ支払い」並びに「カード支払い」を選択して，「購入する」ボタンを押下した際にsripeの決済画面に接続される
 　　　⇒納期およびスキルの兼ね合いから実装断念。
 
-## 調整、確認不足内容
+## 調整、確認不足内容、補足
 　　・デザイン調整、レスポンシブ対応
 　　・コード整理
+　　・環境変数について、セキュリティ観点でよくありませんが、内部で連携する手段など確認不足のため、今回はREADME内に記載します。
+　　・要件に明記されていない点を一部シーダファイルを作成済みです。

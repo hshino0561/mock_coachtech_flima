@@ -12,7 +12,7 @@ class SearchTest extends TestCase
     {
         $keyword = '時計'; // 既にDBに存在する商品名の一部
 
-        $response = $this->get('/?keyword=' . urlencode($keyword));
+        $response = $this->get('/?page=recommend&keyword=' . urlencode($keyword));
 
         $response->assertStatus(200);
         $response->assertSee($keyword); // 「バッグ」を含む商品名が表示されること

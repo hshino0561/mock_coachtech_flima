@@ -34,15 +34,16 @@ class MyListTest extends TestCase
         $this->actingAs($this->user);
 
         // 自分以外の出品者の商品を取得
-        $likedProduct = \App\Models\Product::where('user_id', '!=', $this->user->id)
-            ->whereDoesntHave('likes', fn($q) => $q->where('user_id', $this->user->id))
+        $likedProduct = \App\Models\Product::where('id', 9) // ← 商品IDを固定
+            ->where('user_id', '!=', $this->user->id) // 自分以外が出品した商品
+            ->whereDoesntHave('likes', fn($q) => $q->where('user_id', $this->user->id)) // 自分がまだいいねしていない
             ->firstOrFail();
 
-        // いいねを登録（insert or update）
+        // いいねを事前に登録
         $like = \App\Models\Like::updateOrCreate(
             [
                 'user_id'    => $this->user->id,
-                'product_id' => $likedProduct->id,
+                'product_id' => $likedProduct->id, // = 9
             ]
         );
 
