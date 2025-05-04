@@ -14,15 +14,15 @@ Dockerビルド
     cp src/.env.example src/.env</br>
     ※環境により適宜変更してください。</br>
     ※参考変更例</br>
-    DB_CONNECTION=mysql
-    DB_HOST=mysql
-    DB_PORT=3306
-    DB_DATABASE=laravel_db
-    DB_USERNAME=laravel_user
-    DB_PASSWORD=laravel_pass
+    DB_CONNECTION=mysql</br>
+    DB_HOST=mysql</br>
+    DB_PORT=3306</br>
+    DB_DATABASE=laravel_db</br>
+    DB_USERNAME=laravel_user</br>
+    DB_PASSWORD=laravel_pass</br>
 
-    MAIL_FROM_ADDRESS=no-reply@example.com
-    MAIL_FROM_NAME="COACHTECH"
+    MAIL_FROM_ADDRESS=no-reply@example.com</br>
+    MAIL_FROM_NAME="COACHTECH"</br>
 4. php artisan key:generate
 5. docker-compose up -d --build</br>
     ※または下記を実行してください。</br>
